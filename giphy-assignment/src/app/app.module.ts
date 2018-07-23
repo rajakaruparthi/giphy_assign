@@ -5,7 +5,6 @@ import { GifsComponent } from './gifs/gifs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-import { Ng2TrackScrollModule } from 'ng2-track-scroll';
 import { FormsModule } from '@angular/forms';
 // import {  } from '@angular/platform-browser-dynamic';
 const routes :Routes = [
@@ -23,7 +22,6 @@ const routes :Routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    Ng2TrackScrollModule.forRoot(),
     FormsModule
   ],
   providers: [],

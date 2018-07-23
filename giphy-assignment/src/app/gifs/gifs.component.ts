@@ -28,8 +28,10 @@ export class GifsComponent implements OnInit {
     const page_y_offset = $event.path[1].pageYOffset;
     if(page_y_offset%1000 === 255)
     {
-      let temp = page_y_offset/1000;
-      this.addMoreGifs(temp);
+      let multiple = page_y_offset/1000;
+      setTimeout(() => {
+        this.addMoreGifs(multiple);
+      }, 60);//Wait for some time
     }
   }
  
@@ -50,10 +52,8 @@ export class GifsComponent implements OnInit {
     this.gifDetails = this.finalGifDetails;
   }
 
-  loadGifs(){
-    this.gifDetails.forEach(element => {
-      console.log("came--"+element.url);
-    });
+  onLoadAll(){
+
   }
 
   addMoreGifs(index: number){

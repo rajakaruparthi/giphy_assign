@@ -9,6 +9,11 @@
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
+            <div class="col-xs-2">
+                <button class="btn btn-primary form-control" (click)="onLoadAll()">
+                    Load All
+                </button>
+            </div>
         </div>
         <div (onscroll)="onWindowScroll($event)" scrollTracker class="row">
             <span *ngFor="let eachGif of gifDetails;let i = index;">

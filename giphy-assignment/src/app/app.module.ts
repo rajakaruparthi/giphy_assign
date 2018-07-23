@@ -5,10 +5,12 @@ import { GifsComponent } from './gifs/gifs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
-
+import { Ng2TrackScrollModule } from 'ng2-track-scroll';
+import { FormsModule } from '@angular/forms';
+// import {  } from '@angular/platform-browser-dynamic';
 const routes :Routes = [
   { path: "", component: GifsComponent },
-  { path: "/gifs" , component: GifsComponent}
+  { path: "gifs" , component: GifsComponent}
 ]
 
 @NgModule({
@@ -20,10 +22,13 @@ const routes :Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule
+    RouterModule.forRoot(routes),
+    Ng2TrackScrollModule.forRoot(),
+    FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 
 export class AppModule { }

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, OnChanges } from '@angular/core';
 import { GifsService } from '../gifs.service';
 import { Http, Response } from '@angular/http';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { GifDetailModel } from './gif-detail.model';
+import { NgForm } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-gifs',
@@ -12,19 +15,48 @@ import { Router } from '@angular/router';
 export class GifsComponent implements OnInit {
 
   constructor(private gService: GifsService) { }
+
+
   subscription : Subscription;
+  gifDetails: GifDetailModel[] = [];
+  finalGifDetails: GifDetailModel[] = [];
+  totalImages:number = 0;
+  load20Gifs: GifDetailModel[] =[];
 
-  temp: string="hello gifs";
-
+  @HostListener("window: scroll", ['$event'])
+  onWindowScroll($event) {
+    const page_y_offset = $event.path[1].pageYOffset;
+    if(page_y_offset%1000 === 255)
+    {
+      let temp = page_y_offset/1000;
+      this.addMoreGifs(temp);
+    }
+  }
+ 
   ngOnInit() {
-    this.get_gifs();
-    console.log(this.temp); 
+    this.gifDetails = this.gService.get_gifs_array();
+    this.totalImages = 20;
   }
 
-  get_gifs(){
-    return this.gService.get_gifs_array();
+  onSubmit(form: NgForm){
+    const search_string = form.value.search;
+    this.finalGifDetails = [];
+    this.gifDetails.forEach(eachElement => {
+      if(eachElement.title.includes(search_string)){
+         this.finalGifDetails.push(eachElement);
+      } 
+    });
+    this.gifDetails = [];
+    this.gifDetails = this.finalGifDetails;
   }
-  
-  
 
+  loadGifs(){
+    this.gifDetails.forEach(element => {
+      console.log("came--"+element.url);
+    });
+  }
+
+  addMoreGifs(index: number){
+    this.totalImages = 20 * (Math.round(index)+2);
+  }
 }

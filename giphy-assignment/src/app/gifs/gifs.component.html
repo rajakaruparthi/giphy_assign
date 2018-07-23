@@ -1,2 +1,25 @@
-{{temp}}
-
+<form class="form-horizontal" (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="container" (ngOnload)="loadGifs()">
+        <div class="form-group row center">
+            <div class="col-xs-8">
+                <input type="text" ngModel placeholder="search" name="search" id="search" class="form-control" >
+            </div>
+            <div class="col-xs-1">
+                <button type="submit" class="btn btn-info form-control" >
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+        </div>
+        <div (onscroll)="onWindowScroll($event)" scrollTracker class="row">
+            <span *ngFor="let eachGif of gifDetails;let i = index;">
+                <img  *ngIf="i < totalImages"
+                src={{eachGif.url}} 
+                class="gif-image" 
+                alt="loading" 
+                title="{{eachGif.title}}" 
+                width="25%" 
+                height="200px"/>
+            </span>
+        </div>
+    </div>
+</form>
